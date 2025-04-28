@@ -1,101 +1,150 @@
-🧸 AI 桌面精靈 Kuma — 專案使用說明
-歡迎使用 Kuma！Kuma 是一隻可愛的 AI 桌面熊，能陪伴你對話、記憶重要事項、提醒行程，並且擁有自己的性格！
+# 🧸 AI 桌面精靈 Kuma
 
-本專案使用：
+歡迎使用 **Kuma**！Kuma 是一隻可愛的 AI 桌面熊，能陪伴你對話、記憶重要事項、提醒行程，並擁有獨特的個性！
 
-桌面應用程式（C# WPF）
+## ✨ 功能特色
+- **互動對話**：與 Kuma 聊天，體驗有趣的對話。
+- **行程提醒**：設定提醒，Kuma 會準時通知你。
+- **記憶筆記**：讓 Kuma 幫你記錄重要資訊。
+- **個性化設定**：自訂 Kuma 的語氣和行為，打造專屬的桌面夥伴！
 
-本地大型語言模型推論（DeepSeek-R1 7B）
+## 🛠️ 技術架構
+- **桌面應用**：C# WPF 開發，提供流暢的桌面體驗。
+- **本地語言模型**：DeepSeek-R1 7B，支援高效的本地推論。
+- **後端服務**：Docker 部署，包含 Ollama（語言模型推論）與 MongoDB（資料儲存）。
 
-Docker 部署的後端服務（Ollama + MongoDB）
+---
 
-📦 安裝與啟動流程
-1. 安裝 Docker Desktop
-如果你的電腦尚未安裝 Docker，請先到 Docker 官方網站 下載並安裝。
+## 📦 安裝與啟動流程
 
-安裝完成後，請確保 Docker Desktop 正常運作（右下角有小鯨魚圖示）。
+### 1. 安裝 Docker Desktop
+- 下載並安裝 [Docker Desktop](https://www.docker.com/products/docker-desktop/)。
+- 確認 Docker 正常運行（Windows 右下角顯示小鯨魚圖示）。
 
-2. 啟動後端服務（MongoDB + Ollama）
-打開終端機（Terminal / CMD / PowerShell），進入 docker/ 資料夾，並執行以下指令：
+### 2. 啟動後端服務（MongoDB + Ollama）
+1. 打開終端機（Terminal / CMD / PowerShell）。
+2. 進入專案的 `docker/` 資料夾：
+   ```bash
+   cd docker
+   ```
+3. 執行以下指令啟動服務：
+   ```bash
+   docker-compose --env-file .env up -d
+   ```
+   - 這會自動啟動 MongoDB 資料庫和 Ollama 語言模型推論服務。
+   - 第一次啟動需下載 DeepSeek-R1 7B 模型（約數 GB），請耐心等待。
 
-bash
+### 3. 啟動桌面精靈應用
+- 後端服務啟動後，雙擊 `YourApp.exe` 啟動 Kuma。
+- Kuma 會自動連接到本機服務，開始與你互動！
+
+---
+🧠 長期記憶功能
+Kuma 具備強大的長期記憶功能，能記錄你標記的重要事項，並支援查詢、刪除與更新記憶內容。以下是如何使用相關指令的說明：
+
+📌 標記重要事項
+指令：重要、請記住 <內容>
+用途：告訴 Kuma 記錄一項重要資訊，這些資訊會儲存在 MongoDB 中，供日後查詢。
+範例：
+text
+
 Copy
-Edit
-cd docker
-docker-compose --env-file .env up -d
-這個指令會自動：
+你：重要、請記住 明天上午10點與客戶開會
+Kuma：好的！已記住：明天上午10點與客戶開會。你隨時可以問我哦！😊
+注意：請確保內容清晰，Kuma 會將其儲存為長期記憶。
+🗑️ 刪除重要事項
+指令：刪除重要 <內容或關鍵字>
+用途：從 Kuma 的長期記憶中移除指定的重要事項。
+範例：
+text
 
-啟動 MongoDB 資料庫
-
-啟動 Ollama 語言模型推論服務，並加載 DeepSeek-R1 7B 模型
-
-⏳ 第一次啟動時會花一些時間（因為需要下載 DeepSeek-R1 模型，約數 GB 大小，請耐心等待）
-
-3. 啟動桌面精靈應用
-後端服務啟動後，請雙擊 YourApp.exe （你的桌面精靈應用程式）。
-
-Kuma 會自動連接到本機服務，開始與你互動！
-
-📝 設定 Kuma 的個性（initial_prompt.txt）
-在專案目錄下有一個檔案：
-
-plaintext
 Copy
-Edit
-initial_prompt.txt
-這裡設定了 Kuma 的初始個性與行為指令。
+你：刪除重要 明天上午10點與客戶開會
+Kuma：已刪除關於「明天上午10點與客戶開會」的記憶！有其他需要調整的嗎？🐻
+進階：若不記得完整內容，可用關鍵字模糊匹配：
+text
 
-✅ 你可以自由修改內容，例如：
-
-改變 Kuma 的語氣（正式、可愛、調皮）
-
-決定 Kuma 回覆的語言（中文、英文）
-
-加入更多指令範例（提醒、記筆記等）
-
-修改後，重新啟動桌面程式，Kuma 就會以新的個性與你互動囉！
-
-🛠️ 常見問題
-
-問題	解決方式
-啟動後 .exe 出現連線失敗？	請確認 Docker 是否正在運行 (docker ps)，並檢查 MongoDB/Ollama 是否成功啟動。
-Ollama 第一次啟動很慢？	需要時間下載 DeepSeek-R1 7B 模型，可以預先拉取模型加速（見下方進階）。
-Docker-compose 指令錯誤？	請確認你的 Docker Desktop 是最新版本，且有權限執行。
-⚡ 進階：預先拉取 DeepSeek-R1 7B 模型（加速啟動）
-如果想要減少啟動等待時間，可以手動下載模型：
-
-先單獨啟動 Ollama：
-
-bash
 Copy
-Edit
-docker-compose up -d ollama
-然後進入 Ollama 容器，手動拉取模型：
+你：刪除重要 客戶開會
+Kuma：已刪除所有包含「客戶開會」的記憶！需要我列出剩餘的記憶嗎？
+🔄 更新重要事項
+指令：更新重要 <舊內容或關鍵字> 到 <新內容>
+用途：修改已儲存的重要事項，更新為新的內容。
+範例：
+text
 
-bash
 Copy
-Edit
-docker exec -it ollama ollama pull deepseek-r1:7b
-完成後，下次啟動就不需要重新下載！
+你：更新重要 明天上午10點與客戶開會 到 明天上午11點與客戶開會
+Kuma：好的！已將記憶更新為：明天上午11點與客戶開會。還有什麼需要調整？😄
+注意：若有多條相似記憶，Kuma 會提示你確認或提供匹配清單。
+🔍 查詢記憶（額外功能）
+指令：列出重要事項 或 告訴我重要的事情
+用途：讓 Kuma 顯示所有儲存的重要事項。
+範例：
+text
 
-🧹 停止所有服務
-若需要關閉後端服務，可以執行：
-
-bash
 Copy
-Edit
+你：列出重要事項
+Kuma：這是你標記的重要事項：
+1. 明天上午11點與客戶開會
+2. 下週提交專案報告
+需要我幫你管理這些事項嗎？🐾
+---
+
+## 📝 自訂 Kuma 個性
+Kuma 的個性由專案根目錄下的 `initial_prompt.txt` 檔案定義。你可以：
+- 修改語氣（例如：正式、可愛、調皮）。
+- 設定回覆語言（中文、英文等）。
+- 加入特定指令範例（例如：提醒、記筆記）。
+
+**步驟**：
+1. 編輯 `initial_prompt.txt`。
+2. 儲存後重新啟動桌面應用，Kuma 將以新個性運作！
+
+---
+
+## 🛠️ 常見問題
+| **問題** | **解決方式** |
+|----------|--------------|
+| `.exe` 連線失敗？ | 確認 Docker 是否運行（`docker ps`），並檢查 MongoDB 和 Ollama 是否成功啟動。 |
+| Ollama 第一次啟動慢？ | 因下載 DeepSeek-R1 7B 模型，建議預先拉取模型（見進階）。 |
+| Docker-compose 指令錯誤？ | 確認 Docker Desktop 是最新版本，且有執行權限。 |
+
+---
+
+## ⚡ 進階：加速模型下載
+若想減少首次啟動時間，可預先拉取 DeepSeek-R1 7B 模型：
+1. 單獨啟動 Ollama 服務：
+   ```bash
+   docker-compose up -d ollama
+   ```
+2. 進入 Ollama 容器並拉取模型：
+   ```bash
+   docker exec -it ollama ollama pull deepseek-r1:7b
+   ```
+   - 下次啟動時將直接使用已下載的模型。
+  
+(參考 奕昇AI學習平台: https://ainote.tw/how-to-install-deepseek-on-computer/)
+
+---
+
+## 🧹 停止服務
+若需關閉後端服務，執行：
+```bash
 docker-compose down
-這樣會停止並移除容器（資料仍保留在 Volume 中）。
+```
+- 這會停止並移除容器，資料仍保留在 Docker Volume 中。
 
-📋 注意事項
-本專案使用 DeepSeek-R1 7B 本地推論模型，確保你的設備有足夠資源（建議至少16GB記憶體）。
+---
 
-桌面程式（WPF）是在本機 Windows 執行，不在 Docker 裡面。
+## 📋 注意事項
+- **硬體需求**：建議至少 16GB 記憶體以運行 DeepSeek-R1 7B。
+- **桌面程式**：WPF 應用在 Windows 本機執行，不在 Docker 中。
+- **API 整合**：Notion API、Google Calendar API 需額外設定（未來版本支援）。
 
-請確保 Docker 有足夠磁碟空間（建議10GB以上）。
+---
 
-如果需要使用 Notion API、Google Calendar API 等功能，需另外設定 API Key（未來版本會支援）。
+## 🏁 開始使用吧！
+Kuma 期待成為你的學習與生活好夥伴！如果覺得有趣，歡迎分享給朋友！😊
 
-🏁 祝你使用愉快！
-Kuma 期待成為你的學習與生活好夥伴！
-如果覺得有趣，也歡迎分享給朋友一同使用！
+有任何問題或建議，請在 [GitHub Issues]([https://github.com/your-repo](https://github.com/dyeee/Kuma-The-Desktop-AI-Pet_v1/issues) 告訴我們！
