@@ -149,4 +149,4 @@ docker-compose down
 ## 🏁 開始使用吧！
 Kuma 期待成為你的學習與生活好夥伴！如果覺得有趣，歡迎分享給朋友！😊
 
-有任何問題或建議，請在 [GitHub Issues]([https://github.com/your-repo](https://github.com/dyeee/Kuma-The-Desktop-AI-Pet_v1/issues) 告訴我們！
+有任何問題或建議，請在 [這裡](https://github.com/dyeee/Kuma-The-Desktop-AI-Pet_v1/issues) 告訴我！
