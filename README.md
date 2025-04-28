@@ -126,7 +126,7 @@ Kuma 的個性由專案根目錄下的 `initial_prompt.txt` 檔案定義。你�
    ```
    - 下次啟動時將直接使用已下載的模型。
   
-(參考 奕昇AI學習平台: https://ainote.tw/how-to-install-deepseek-on-computer/)
+或參考【奕昇AI學習平台】[建立私人本地 AI 資料庫](https://ainote.tw/how-to-install-deepseek-on-computer/)
 
 ---
 
