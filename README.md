@@ -1,6 +1,8 @@
 # 🧸 AI 桌面精靈 Kuma
 
 歡迎使用 **Kuma**！Kuma 是一隻可愛的 AI 桌面熊，能陪伴你對話、記憶重要事項、提醒行程，並擁有獨特的個性！
+![image](https://github.com/user-attachments/assets/e68223c9-bbbd-4c9b-809a-fa205e2c8426)
+
 
 ## ✨ 功能特色
 - **互動對話**：與 Kuma 聊天，體驗有趣的對話。
