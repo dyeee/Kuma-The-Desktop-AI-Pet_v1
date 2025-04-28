@@ -20,6 +20,8 @@ services:
       - ollama-data:/root/.ollama
     environment:
       - OLLAMA_MODELS=${OLLAMA_MODEL}
+    command: >
+      sh -c "ollama run ${OLLAMA_MODEL} && tail -f /dev/null"
 
 volumes:
   mongo-data:
